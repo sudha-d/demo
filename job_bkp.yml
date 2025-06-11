@@ -1,0 +1,62 @@
+job:
+
+ pipeline_name: pipeline
+
+ table_count: 3
+
+ refresh_frequency: daily
+
+ full_load_tables: 
+  source_schema: sch
+  object_name: {tab1,tab2,tab3}
+  object_type: table
+  num_partitions: 100
+  parallel_read: false
+  # sensitive_info_flag: true - unexplored
+  # sensitive_info_details: c5,c6,c7
+  # sensitive_info_regions: India
+  target_catalog: ucma
+  target_schema: db
+  target_table: tab
+  select_cols: c1,c2,c3,c4 # not required
+
+ incremental_load_tables:
+  - source_schema: sch
+    object_name: tab4
+    object_type: table
+    primary_columns: c1,c2
+    audit_cols: c3,c4
+    update_column: last_updated_date
+    delete_flag: false
+    delete_timeframe: NA
+    load_type: INCREMENTAL
+    num_partitions: 100 
+    parallel_read: false
+    sensitive_info_flag: true
+    sensitive_info_details: c5,c6,c7
+    sensitive_info_regions: India
+    target_catalog: ucma
+    target_schema: db
+    target_table: tab
+    select_cols: c1,c2,c3,c4
+    save_mode: UPDATE
+  
+  - source_schema: sch
+    object_name: tab5
+    object_type: table
+    primary_columns: c1,c2
+    audit_cols: c3,c4
+    update_column: last_updated_date
+    delete_flag: false
+    delete_timeframe: NA
+    load_type: INCREMENTAL
+    num_partitions: 100 
+    parallel_read: false
+    sensitive_info_flag: true
+    sensitive_info_details: c5,c6,c7
+    sensitive_info_regions: India
+    target_catalog: ucma
+    target_schema: db
+    target_table: tab
+    select_cols: c1,c2,c3,c4
+    save_mode: UPDATE
