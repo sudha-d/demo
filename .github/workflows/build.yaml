@@ -30,14 +30,14 @@ jobs:
          python read_yaml.py
         # working-directory: ./yaml_test       
 
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v7
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "Automated commit for PR"
-          title: "Automated PR for changes in ${{ github.ref_name }}"
-          body: "This PR was automatically created for changes pushed to ${{ github.ref_name }}."
-          branch: ${{ github.ref_name }}  # Use the current branch
-          base: dev-branch # Target branch (e.g., main or master)
-          labels: automated-pr
-          draft: true
+      # - name: Create Pull Request
+      #   uses: peter-evans/create-pull-request@v7
+      #   with:
+      #     token: ${{ secrets.GITHUB_TOKEN }}
+      #     commit-message: "Automated commit for PR"
+      #     title: "Automated PR for changes in ${{ github.ref_name }}"
+      #     body: "This PR was automatically created for changes pushed to ${{ github.ref_name }}."
+      #     branch: ${{ github.ref_name }}  # Use the current branch
+      #     base: dev-branch # Target branch (e.g., main or master)
+      #     labels: automated-pr
+      #     draft: true
