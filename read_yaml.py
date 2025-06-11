@@ -38,7 +38,7 @@ def recursive_merge(dict1, dict2):
             dict1[key] = recursive_merge(dict1[key], value)
         elif vale is not None:
             dict1[key] = value
-   return dict1
+    return dict1
 result = recursive_merge(defaults, combined)    
 result_keys = []
 expected_keys = []
