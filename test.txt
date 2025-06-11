@@ -1,1 +1,1 @@
-  Hi,welcome to jira integration with git 
+  Hi,welcome to jira integration with git user
