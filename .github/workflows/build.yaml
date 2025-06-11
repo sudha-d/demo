@@ -49,7 +49,7 @@ jobs:
 
       - name: Create and Merge Pull Request
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # The default GitHub Actions token
+          GITHUB_TOKEN: ${{ secrets.SU_GITHUB_TOKEN }} # The default GitHub Actions token
         run: |
           # Define your target branch (e.g., 'main', 'develop', 'release')
           TARGET_BRANCH="dev-branch"
