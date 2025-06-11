@@ -43,24 +43,27 @@ jobs:
          python read_yaml.py
         # working-directory: ./yaml_test 
 
+      - name: Setup GitHub CLI
+        uses: cli/gh-cli@v2 
+        
       - name: Get current branch name
         id: branch_name
         run: echo "CURRENT_BRANCH=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
 
       - name: Create and Auto-Merge Pull Request
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # The default GitHub Actions token
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          TARGET_BRANCH="dev-branch" # <<<--- Define your target branch here!
+          TARGET_BRANCH="dev-branch"
           CURRENT_BRANCH="${{ steps.branch_name.outputs.CURRENT_BRANCH }}"
 
           echo "Attempting to create/merge PR from $CURRENT_BRANCH to $TARGET_BRANCH"
 
-          # 1. Check if current branch is the target branch (exit if so)
           if [ "$CURRENT_BRANCH" == "$TARGET_BRANCH" ]; then
             echo "Current branch ($CURRENT_BRANCH) is the same as the target branch ($TARGET_BRANCH). Skipping PR creation/merge."
             exit 0
           fi
+
           gh pr create \
             --base "$TARGET_BRANCH" \
             --head "$CURRENT_BRANCH" \
@@ -69,18 +72,12 @@ jobs:
             Original commit message: ${{ github.event.head_commit.message }}" \
             --auto \
             --squash \
+            --delete-branch \
             || {
-              echo "PR creation failed (possibly due to existing PR or other issue). Attempting to auto-merge existing PR if one exists."
-              # If creation failed, it's likely because a PR already exists.
-              # We'll rely on the auto-merge functionality if the existing PR is set to auto-merge.
-              # Or, we can explicitly find and try to auto-merge the existing one.
-              # For simplicity in this "simple" method, we trust the --auto flag.
-              # If the PR was created previously with --auto, it should eventually merge.
-              # If you need to force auto-merge on an *existing PR that wasn't created with --auto*,
-              # you'd need more complex logic (find PR number, then gh pr merge --auto <number>).
-              # The simplest case relies on the --auto flag being set during *creation*.
+              echo "PR creation command failed (possibly due to existing PR or other issue). Check logs."
             }
 
           echo "PR creation command executed. If successful, PR is set to auto-merge when checks pass."
           echo "Check your GitHub repository's 'Pull requests' tab for status."
+
 
