@@ -1,6 +1,0 @@
-connection:
- properties:
-  oracle_fetchsize: 10000
-
-job:
- refresh_frequency: daily
