@@ -24,21 +24,14 @@ jobs:
         with:
           python-version: '3.10'
 
-      # - name: Install projects dependencies
-      #   run: |
-      #     make install
+      - name: Install Python dependencies
+        run: pip install black flake8
 
-      # - name: Validating code formatting
-      #   run: |
-      #     make check-formatting
-
-      - name: Linting
-        run: |
-          make lint
-
-      - name: Type checking
-        run: |
-          make type-checking
+      - name: Run linters
+        uses: wearerequired/lint-action@v2
+        with:
+          black: true
+          flake8: true
 
       - name: Install the dependencies
         run: |
