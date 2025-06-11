@@ -32,3 +32,34 @@ combined = connection | job | route
 
 categories = ['connection', 'job', 'route']
 
+def recursive_merge(dict1, dict2):
+    for key, value in dict2.items():
+        if key in dict1 and isinstance(dict1[key], value) and isinstance(value, value):
+         dict[key] = recursive_merge(dict1[key], value)
+        elif vale is not None:
+         dict1[key] = value
+   return dict1
+result = recursive_merge(defaults, combined)    
+result_keys = []
+expected_keys = []
+def get_keys(result, lst, pre = None):
+    for k, v in result.items():
+     ck = (pre + "." + k) if pre is not None else k
+     lst.append(ck)
+     if isinstace(v, dict):
+        get_keys(v, lst, ck)
+get_keys(result, result_keys)
+get_keys(expected, expected_keys)
+
+print(result_keys)
+print(expected_keys)
+
+missing_keys = set(expected_keys) - set(result_keys)
+
+if len(missing_keys) > 0:
+   missing_keys_str = f"Following  keys are missing in the YAML - {",".join(missing_keys)}"
+   raise Exception(missing_keys_str)
+
+with open('combined_actual.yaml', 'w') as file:
+     yaml.dump(result, file, default_flow_style=False, indent=4)
+ 
