@@ -44,8 +44,9 @@ jobs:
         # working-directory: ./yaml_test 
 
       - name: Setup GitHub CLI
-        uses: cli/gh-cli@v2 
-        
+        uses: cli/gh-cli@v1
+        with: 
+         version: '2.x'   
       - name: Get current branch name
         id: branch_name
         run: echo "CURRENT_BRANCH=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
