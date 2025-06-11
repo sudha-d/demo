@@ -42,12 +42,23 @@ jobs:
         run: |
          python read_yaml.py
         # working-directory: ./yaml_test 
+      - name: Install GitHub CLI Manually
+        run: |
+          set -x # Enable verbose output for debugging this step
+          sudo mkdir -p -m 755 /etc/apt/keyrings
+          wget -qO- https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null
 
-      - name: Setup GitHub CLI
-        uses: github/setup-gh@v1
-        with: 
-         version: '2.x'   
-         
+          echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+          
+          # Update APT cache
+          sudo apt update
+          
+          # Install GitHub CLI
+          sudo apt install gh -y
+          
+          # Verify installation and version (should be 2.x.x or higher)
+          gh --version
+          
       - name: Get current branch name
         id: branch_name
         run: echo "CURRENT_BRANCH=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
