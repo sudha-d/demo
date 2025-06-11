@@ -59,7 +59,7 @@ jobs:
           # Verify installation and version (should be 2.x.x or higher)
           gh --version
           
-     - name: Create and Immediately Merge Pull Request
+      - name: Create and Immediately Merge Pull Request
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
