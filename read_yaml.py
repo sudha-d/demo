@@ -36,7 +36,7 @@ def recursive_merge(dict1, dict2):
     for key, value in dict2.items():
         if key in dict1 and isinstance(dict1[key], dict) and isinstance(value, dict):
             dict1[key] = recursive_merge(dict1[key], value)
-        elif vale is not None:
+        elif value is not None:
             dict1[key] = value
     return dict1
 result = recursive_merge(defaults, combined)    
@@ -46,7 +46,7 @@ def get_keys(result, lst, pre = None):
     for k, v in result.items():
      ck = (pre + "." + k) if pre is not None else k
      lst.append(ck)
-     if isinstace(v, dict):
+     if isinstance(v, dict):
         get_keys(v, lst, ck)
 get_keys(result, result_keys)
 get_keys(expected, expected_keys)
