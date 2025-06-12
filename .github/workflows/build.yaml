@@ -17,6 +17,8 @@ jobs:
     permissions:
       contents: write # Needed for actions/checkout
       pull-requests: write # Needed to create PRs
+      checks: write
+      statuses: write
     steps:
       - uses: actions/checkout@v4
 
