@@ -37,7 +37,7 @@ jobs:
       - name: Validate YAML files
         uses: GrantBirki/json-yaml-validate@v3.3.0
         with:
-          files: '**/*.yml'
+          files: '**/*.yaml'
 
       - name: Install the dependencies
         run: |
